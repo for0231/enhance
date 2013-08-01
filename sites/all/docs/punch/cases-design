@@ -1,0 +1,15 @@
+cases-design (案例中心) design-doc
+一、请求设计
+cases|cases/list: 案例列表
+case/%/edit: 案例编辑
+case/%/delete: 删除案例
+
+二、数据库设计
+cid: ID(主键)
+fid: 图片ID
+case_url: 案例链接地址
+title: 案例标题
+description: 案例描述
+body: 案例内容
+tid: 案例类型ID
+

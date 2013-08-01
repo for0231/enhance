@@ -1,0 +1,16 @@
+link-design (公司介绍) design-doc
+一、请求设计
+introduces: 单页公司介绍
+introduce/edit: 团队成员添加
+introduce/delete: 删除团队成员
+introduce/promot: 团队成员推荐 
+
+二、数据库设计
+iid: 主键（自增)
+name: 名字
+job: 职位名称
+description: 个人描述
+fid: 图片ID
+
+三、区块设计
+introduce-for-me: 公司简介区块

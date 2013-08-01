@@ -1,0 +1,14 @@
+contact-design (联系我们） design-doc
+一、系统变量
+contact_templates: 联系我们 模板
+
+二、请求设计
+contact: 请求
+
+三、数据库设计
+cid: ID（主键）
+name: 名字
+email: Email地址
+phone: 联系电话
+message: 意见内容
+

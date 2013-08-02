@@ -1,0 +1,14 @@
+Organic groups docs
+
+一、依赖包
+options, list, text, entity, entityreference
+
+二、实体API控制器
+og/includes/*
+
+三、请求设计
+og/autocomplete/single/%/%/%/%: 实体参考自动完成 
+
+og/autocomplete/tags/%/%/%/%: 实体参考自动完成
+
+

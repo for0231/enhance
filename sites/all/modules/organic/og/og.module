@@ -6,7 +6,8 @@
  */
 
 // Add field widget related code.
-require DRUPAL_ROOT . '/' . drupal_get_path('module', 'og') . '/includes/og.field.inc';
+// require DRUPAL_ROOT . '/' . drupal_get_path('module', 'og') . '/includes/og.field.inc';
+require  'includes/og.field.inc';
 
 /**
  * Define active group content states.
@@ -3505,4 +3506,49 @@ function og_flush_caches() {
     'cache_entity_og_membership_type',
   );
   return $bins;
+}
+
+function og_exit() {
+  $schema['og_role'] = array(
+    'description' => 'Stores user roles per group.',
+    'fields' => array(
+      'rid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique role ID.',
+      ),
+      'gid'               => array(
+        'description'     => "The group's unique ID.",
+        'type'            => 'int',
+        'size'            => 'normal',
+        'not null'        => TRUE,
+      ),
+      'group_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => "The group's entity type.",
+      ),
+      'group_bundle' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => "The group's bundle name.",
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Unique role name per group.',
+      ),
+    ),
+    'primary key' => array('rid'),
+  );
+
+  //error_log(print_r($schema,1), 3, '/tmp/error.log'); 
+  drupal_debug($schema);
 }

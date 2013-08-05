@@ -11,4 +11,83 @@ og/autocomplete/single/%/%/%/%: 实体参考自动完成
 
 og/autocomplete/tags/%/%/%/%: 实体参考自动完成
 
+========== 下面请求由 og_entity_info 定义 ===============
+admin/config/group/group-membership: OG会员群组关系
+
+admin/config/group/group-membership/manage/%og_membership_type OG会员编辑
+
+admin/config/group/group-membership/import: OG会员导入
+
+admin/config/group/group-membership/add: OG会员添加
+
+四、API设计
+  1). 实体设计
+  og_membership_type: OG会员类型
+  og_membership: OG会员
+  2). 实现hook_entity_property_info 
+
+  og_get_all_group_content_bundle():
+  og_group_content_states():
+  og_get_group_members_properties($entity, $options, $name, $type): 获取OG会员属性
+  entity_extract_ids($entity_type, $entity): 获取实体的id,vid,bundle name
+  og_membership_load_multiple($ids, $conditions, $reset): 多重加载OG会员
+  og_get_field_og_membership_properties($entity, $options, $name, $type): 获取OG会员属性的字段
+  og_entity_getter($object, $options, $property_name): 从OG会员中加载实体或群组属性，调用Getter.
+  og_entity_setter($object, $property_name, $wrapper): 实体属性设置。
+  og_default_og_membership_type(): OG默认会员类型
+  og_modules_uninstalled($modules): 实现模块卸载自动卸载相关单元
+  og_permissions_delete_by_module($modules): 卸载OG模块权限
+  og_ctools_plugin_directory($module, $plugin): 加载插件
+  og_og_permission(): 实现hook_og_permission(): 生成标准的所有适用的节点类型节点的权限。
+  og_list_permissions($type): 为OG获取指定类型的权限列表
+  og_is_group_content_type($entity_type, $bundle_name): 如果实体类型是群组类型则返回TRUE。
+  og_get_group_type($entity_type, $bundle_name, 'group content'): 返回一个实体的群组类型
+  og_role_revoke($group_type, $gid, $uid, $rid): 撤消用户的组角色
+
+五、数据库设计
+og_role_permission OG角色权限表
+  rid: int foreign key
+  permission: varchar 128
+  module: varchar 255
+
+og_role: OG group角色
+  rid: serial primary
+  gid: int normal
+  group_type: varchar 255
+  group_bundle: varchar 255
+  name: varchar 64
+
+og_users_roles: 用户角色关系表
+  uid: int primary
+  rid: int primary
+  gid: int primary
+  group_type: varchar 255
+
+og_membership_type: 会员关系类型
+  id: serial primary
+  name: varchar 255
+  description: varchar 255
+  status: int tiny
+  module: varchar 255
+  language: varchar 12
+
+og_membership: OG会员关系
+  id: serial primary
+  type: varchar 255
+  etid: int 0
+  entity_type: varchar 32
+  gid: int normal
+  group_type: varchar 32
+  state: varchar 255
+  created: int 0
+  field_name: varchar 255
+  language: varchar 12
+
+og: Store groups' infomation
+  gid: serial primary
+  etid: int 0
+  entity_type: varchar 32
+  label: varchar 255
+  state: int 1
+  created: int 0
 
